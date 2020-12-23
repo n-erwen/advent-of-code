@@ -21,25 +21,26 @@ def num_of_trees_on_slope(slope, t_map, pattern_len):
 
     return "\n".join(t_map).count("X")
 
-input_file = open("input.txt", "r")
-toboggan_map = input_file.read().split("\n")
-input_file.close()
-map_pattern_length = len(toboggan_map[0])
+if __name__ == "__main__":
+    input_file = open("input.txt", "r")
+    toboggan_map = input_file.read().split("\n")
+    input_file.close()
+    map_pattern_length = len(toboggan_map[0])
 
-slopes = [
-    {"right": 1, "down": 1},
-    {"right": 3, "down": 1},
-    {"right": 5, "down": 1},
-    {"right": 7, "down": 1},
-    {"right": 1, "down": 2},
-]
+    slopes = [
+        {"right": 1, "down": 1},
+        {"right": 3, "down": 1},
+        {"right": 5, "down": 1},
+        {"right": 7, "down": 1},
+        {"right": 1, "down": 2},
+    ]
 
-trees_on_each_slope = []
-for s in slopes:
-    trees_on_each_slope.append(num_of_trees_on_slope(s, toboggan_map[:], map_pattern_length))
+    trees_on_each_slope = []
+    for s in slopes:
+        trees_on_each_slope.append(num_of_trees_on_slope(s, toboggan_map[:], map_pattern_length))
 
-product = 1
-for trees in trees_on_each_slope:
-    product *= trees
+    product = 1
+    for trees in trees_on_each_slope:
+        product *= trees
 
-print("Part 2: " + str(product))
+    print("Part 2: " + str(product))
