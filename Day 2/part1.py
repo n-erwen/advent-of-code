@@ -17,17 +17,17 @@ def does_password_match_policy(password, policy):
         return True
     return False
 
-if __
-input_file = open("input.txt","r")
-passwords_input = input_file.read().split("\n")
-input_file.close()
+if __name__ == "__main__":
+    input_file = open("input.txt","r")
+    passwords_input = input_file.read().split("\n")
+    input_file.close()
 
-valid_passwords = 0
-for p in passwords_input:
-    if p:
-        policy_string, password = p.split(": ")
-        policy = deconstruct_policy_string(policy_string)
-        if does_password_match_policy(password, policy):
-            valid_passwords += 1
+    valid_passwords = 0
+    for p in passwords_input:
+        if p:
+            policy_string, password = p.split(": ")
+            policy = deconstruct_policy_string(policy_string)
+            if does_password_match_policy(password, policy):
+                valid_passwords += 1
 
-print("Valid passwords: " + str(valid_passwords))
+    print("Valid passwords: " + str(valid_passwords))
