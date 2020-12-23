@@ -1,55 +1,36 @@
 import re
+from day4_module import parse_passport_fields, has_required_fields
 
-def parse_passport_fields(passport):
-    passport = passport.replace('\n', ' ').split(' ')
-    passport_dict = {}
-    for field in passport:
-        key, value = field.split(":")
-        passport_dict[key] = value
-    return passport_dict
-
-def has_required_fields(passport):
-    required_fields = ["byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"]
-    for f in required_fields:
-        if f not in passport.keys():
-            return False
-    return True
-
-def validate_height(height):
-    height_format = re.compile(r"\d+(cm|in)")
-    if height_format.search(height):
-        h = int(height[:-2])
-        unit = height[-2:]
-        height_validation = {"cm": (h >= 150 and h <= 193), "in":(h >= 59 and h <= 76),}
-        return height_validation[unit]
-    
+def does_value_match_expression(value, pattern):
+    return bool(re.compile(pattern).search(value))
 
 def validate_fields(passport):
-    is_byr_valid = int(passport["byr"]) >= 1920 and int(passport["byr"]) <= 2002
-    is_iyr_valid = int(passport["iyr"]) >= 2010 and int(passport["iyr"]) <= 2020
-    is_eyr_valid = int(passport["eyr"]) >= 2020 and int(passport["eyr"]) <= 2030
-    is_hgt_valid = validate_height(passport["hgt"])
-    is_hcl_valid = bool(re.compile(r"#[0-9a-f]{6}").search(passport["hcl"]))
-    is_ecl_valid = passport["ecl"] in ["amb", "blu", "brn", "gry", "grn", "hzl", "oth"]
-    is_pid_valid = bool(re.compile(r"\d{9}").search(passport["pid"]))
-    return is_byr_valid and is_iyr_valid and is_eyr_valid and is_hgt_valid and is_hcl_valid and is_ecl_valid and is_pid_valid
+    field_patterns = {
+        "byr": r"^19[2-9][0-9]$|^200[0-2]$",
+        "iyr": r"^201[0-9]$|^2020$",
+        "eyr": r"^202[0-9]$|^2030$",
+        "hgt": r"^1([5-8][0-9]|9[0-3])cm$|^(59|6[0-9]|7[0-6])in$",
+        "hcl": r"^#[0-9a-f]{6}$",
+        "ecl": r"^(amb|blu|brn|gry|grn|hzl|oth)$",
+        "pid": r"^\d{9}$"
+    }
+    all_fields_checked = [
+        does_value_match_expression(passport[f], field_patterns[f]) for f in field_patterns.keys()
+    ]
+    return all(field for field in all_fields_checked)
 
 def is_passport_valid(passport):
     if has_required_fields(passport):
-        return validate_fields(passport)
-    return False
+        return passport if validate_fields(passport) else None
+    return None
 
-input_file = open("input.txt", "r")
-passports = input_file.read().split("\n\n")
-input_file.close()
+if __name__ == "__main__":
+    input_file = open("input.txt", "r")
+    passports = input_file.read().split("\n\n")
+    input_file.close()
 
-passports = list(map(parse_passport_fields, passports))
+    passports = [parse_passport_fields(p) for p in passports]
 
-valid_passports = list(map(is_passport_valid, passports[:]))
-print("Valid passports: " + str(valid_passports.count(True)))
+    valid_passports = [is_passport_valid(p) for p in passports if is_passport_valid(p)]
 
-<hr>
-
-""" 
-Wrong Answers: 128
-"""
+    print("Valid passports: " + str(len(valid_passports)))
