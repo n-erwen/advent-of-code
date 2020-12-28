@@ -24,10 +24,9 @@ if __name__ == "__main__":
 
     valid_passwords = 0
     for p in passwords_input:
-        if p:
-            policy_string, password = p.split(": ")
-            policy = deconstruct_policy_string(policy_string)
-            if does_password_match_policy(password, policy):
-                valid_passwords += 1
+        policy_string, password = p.split(": ")
+        policy = deconstruct_policy_string(policy_string)
+        if does_password_match_policy(password, policy):
+            valid_passwords += 1
 
     print("Valid passwords: " + str(valid_passwords))

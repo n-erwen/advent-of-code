@@ -26,7 +26,17 @@ if __name__ == "__main__":
     toboggan_map = input_file.read().split("\n")
     input_file.close()
     map_pattern_length = len(toboggan_map[0])
-
+    
+    # Part 1
+    print("(Day 3: Part 1) Number of trees on slope (right 3, down 1): " + \
+          str(num_of_trees_on_slope(
+            {"right": 3, "down": 1},
+            toboggan_map[:],
+            map_pattern_length
+            ))
+         )
+    
+    # Part 2
     slopes = [
         {"right": 1, "down": 1},
         {"right": 3, "down": 1},
@@ -43,4 +53,4 @@ if __name__ == "__main__":
     for trees in trees_on_each_slope:
         product *= trees
 
-    print("Part 2: " + str(product))
+    print("(Day 2: Part 2) Result: " + str(product))

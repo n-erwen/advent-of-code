@@ -18,8 +18,8 @@ if __name__ == "__main__":
     expenses = expenses_file.read().split("\n")
     expenses = list(map(lambda x: int(x), expenses))
     expenses_file.close()
-    print("Part 1 -> " + str(find_product_of_two_nums_which_sum_to(2020, expenses)))
-    print("Part 2 -> " + str(find_product_of_three_nums_which_sum_to(2020, expenses)))
+    print("(Day 1: Part 1) Result: " + str(find_product_of_two_nums_which_sum_to(2020, expenses)))
+    print("(Day 1: Part 2) Result:  + str(find_product_of_three_nums_which_sum_to(2020, expenses)))
 
 
     
