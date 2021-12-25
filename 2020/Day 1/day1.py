@@ -1,3 +1,7 @@
+def load_input(file_path):
+    with open(file_path, "r") as f:
+        return [int(x) for x in f.read().split("\n")]
+    
 def find_product_of_two_nums_which_sum_to(target_sum, num_array):
     """Day 1 Part 1: Find the product of two numbers which sum to 2020"""
     for x in num_array:
@@ -14,14 +18,6 @@ def find_product_of_three_nums_which_sum_to(target_sum, num_array):
                     return x * y * z
 
 if __name__ == "__main__":
-    expenses_file = open("input.txt", "r")
-    expenses = expenses_file.read().split("\n")
-    expenses = list(map(lambda x: int(x), expenses))
-    expenses_file.close()
+    expenses = load_input("./input.txt")
     print("(Day 1: Part 1) Result: " + str(find_product_of_two_nums_which_sum_to(2020, expenses)))
-    print("(Day 1: Part 2) Result:  + str(find_product_of_three_nums_which_sum_to(2020, expenses)))
-
-
-    
-
-
+    print("(Day 1: Part 2) Result: " + str(find_product_of_three_nums_which_sum_to(2020, expenses)))
