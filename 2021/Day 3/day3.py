@@ -26,8 +26,24 @@ def get_epsilon_rate(report):
                 ]),
         base=2)
     
-IS_EXAMPLE = True
-INPUT_FILE_PATH = './example_input.txt' if IS_EXAMPLE else './input.txt'
+def get_oxygen_generator_rating(report):
+    filtered_report = report
+    for i in range (0, len(report[0])):
+        most_common_bit = find_most_common_bit(i, filtered_report)
+        filtered_report = [r for r in filtered_report if r[i] == most_common_bit]
+        if len(filtered_report) == 1:
+            return int(filtered_report[0], base=2)
+
+
+def get_co2_scrubber_rating(report):
+    filtered_report = report
+    for i in range (0, len(report[0])):
+        least_common_bit = find_least_common_bit(i, filtered_report)
+        filtered_report = [r for r in filtered_report if r[i] == least_common_bit]
+        if len(filtered_report) == 1:
+            return int(filtered_report[0], base=2)
+    
+INPUT_FILE_PATH = './input.txt'
 
 if __name__ == "__main__":
     report = load_input(INPUT_FILE_PATH)
@@ -37,11 +53,10 @@ if __name__ == "__main__":
     print("(Day 3 Part 1) gamma rate * epsilon rate = {}".format(
         part1()
     ))
-
+    
     # PART 2
     def part2():
-        return None
-    print("(Day 3 Part 2) {}".format(
+        return get_oxygen_generator_rating(report) * get_co2_scrubber_rating(report)
+    print("(Day 3 Part 2) oxygen generator rating * CO2 scrubber rating = {}".format(
         part2()
     ))
-    
