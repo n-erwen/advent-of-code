@@ -1,6 +1,11 @@
 from typing import List
 
 
+def load_puzzle_input(file_name: str) -> str:
+    with open(file_name, "r") as file:
+        return file.read().rstrip()
+
+
 def split_inventories(input_string: str) -> List[List[int]]:
     return [[int(calories) for calories in inv.split("\n")] for inv in input_string.split("\n\n")]
 
@@ -19,6 +24,6 @@ def part2_solution(input_string: str) -> int:
 
 
 if __name__ == "__main__":
-    input_string = open("./input.txt", "r").read().rstrip()
+    input_string = load_puzzle_input("./input.txt")
     print(f"Part 1 Solution: {part1_solution(input_string)}")
     print(f"Part 2 Solution: {part2_solution(input_string)}")
