@@ -16,20 +16,39 @@ def split_compartments(rucksack: str) -> tuple[str, str]:
     return rucksack[:mid_index], rucksack[mid_index:]
 
 
+def group_elves(rucksacks: List[str]) -> List[List[str]]:
+    return [rucksacks[index:index+3] for index in range(0, len(rucksacks), 3)]
+
+
+def get_shared_item_types(sets: List[set[str]]) -> List[str]:
+    return [item for item in set.intersection(*sets)]
+
+
+def get_item_priority_value(item: str) -> int:
+    return ascii_letters.index(item) + 1
+
+
+def get_priority_total(items: List[str]) -> int:
+    return sum(get_item_priority_value(i) for i in items)
+
+
 def part1_solution(rucksacks: List[str]) -> int:
     """Part 1: Find the item type that appears in both compartments of each rucksack.
     What is the sum of the priorities of those item types?"""
-    shared_item_types = []
-    for r in rucksacks:
-        compartment_sets = [set(c) for c in split_compartments(r)]
-        for item in compartment_sets[0].intersection(compartment_sets[1]):
-            shared_item_types.append(item)
-    return sum([ascii_letters.index(letter) + 1 for letter in shared_item_types])
+    shared_item_types = sum([
+        get_shared_item_types([set(c) for c in split_compartments(r)])
+        for r in rucksacks
+    ], [])
+    return get_priority_total(shared_item_types)
 
 
-def part2_solution(game_rounds: List[str]) -> int:
+def part2_solution(rucksacks: List[str]) -> int:
     """Part 2:"""
-    return 0
+    shared_item_types = sum(
+        [get_shared_item_types([set(g) for g in grp])
+         for grp in group_elves(rucksacks)], []
+    )
+    return get_priority_total(shared_item_types)
 
 
 if __name__ == "__main__":

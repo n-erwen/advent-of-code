@@ -11,10 +11,12 @@ CrZsJsPPZsGzwwsLwLmpwMDw"""
 
 class TestDay1(unittest.TestCase):
     def test_part1(self):
-        self.assertEqual(day3.part1_solution(day3.split_rucksacks(SAMPLE_INPUT)), 157)
+        self.assertEqual(day3.part1_solution(
+            day3.split_rucksacks(SAMPLE_INPUT)), 157)
 
     def test_part2(self):
-        self.assertEqual(day3.part2_solution(day3.split_rucksacks(SAMPLE_INPUT)), 0)
+        self.assertEqual(day3.part2_solution(
+            day3.split_rucksacks(SAMPLE_INPUT)), 70)
 
 
 if __name__ == '__main__':
