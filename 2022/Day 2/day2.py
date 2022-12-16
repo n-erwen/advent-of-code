@@ -4,8 +4,10 @@ OPPONENT_SHAPES = {"A": "rock", "B": "paper", "C": "scissors"}
 PLAYER_SHAPES = {"X": "rock", "Y": "paper", "Z": "scissors"}
 DESIRED_OUTCOMES = {"X": "lose", "Y": "draw", "Z": "win"}
 
-SHAPE_NEEDED_TO_WIN = {"rock": "paper", "paper": "scissors", "scissors": "rock"}
-SHAPE_NEEDED_TO_LOSE = {"rock": "scissors", "paper": "rock", "scissors": "paper"}
+SHAPE_NEEDED_TO_WIN = {"rock": "paper",
+                       "paper": "scissors", "scissors": "rock"}
+SHAPE_NEEDED_TO_LOSE = {"rock": "scissors",
+                        "paper": "rock", "scissors": "paper"}
 
 SHAPE_POINTS = {"rock": 1, "paper": 2, "scissors": 3}
 OUTCOME_POINTS = {"win": 6, "draw": 3, "lose": 0}
@@ -50,14 +52,16 @@ def decode_columns(game_round, second_column: {str: str}):
 
 
 def first_strategy_get_round_score(game_round: str) -> int:
-    opponent_shape, player_shape = decode_columns(game_round, second_column=PLAYER_SHAPES)
+    opponent_shape, player_shape = decode_columns(
+        game_round, second_column=PLAYER_SHAPES)
 
     return SHAPE_POINTS[player_shape] \
         + OUTCOME_POINTS[get_round_outcome(player_shape, opponent_shape)]
 
 
 def second_strategy_get_round_score(game_round: str):
-    opponent_shape, desired_outcome = decode_columns(game_round, second_column=DESIRED_OUTCOMES)
+    opponent_shape, desired_outcome = decode_columns(
+        game_round, second_column=DESIRED_OUTCOMES)
 
     return SHAPE_POINTS[get_required_response_for_outcome(desired_outcome, opponent_shape)] \
         + OUTCOME_POINTS[desired_outcome]
