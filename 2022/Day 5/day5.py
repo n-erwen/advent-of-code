@@ -1,12 +1,14 @@
 import re
 import logging
+from collections import deque
 
 logging.basicConfig(
-    level=logging.DEBUG,
+    level=logging.INFO,
     format='\n%(levelname)s - %(asctime)s\n'
            + '-' * 31
            + '\n%(message)s\n'
-           + '-' * 31 + '\n')
+           + '-' * 31 + '\n'
+)
 
 
 def load_puzzle_input(file_name: str) -> str:
@@ -14,29 +16,45 @@ def load_puzzle_input(file_name: str) -> str:
         return file.read().rstrip()
 
 
-def get_num_columns(stacks):
-    return len(stacks.split("\n")[-1].split())
+def get_num_stacks(stack_drawing):
+    return len(stack_drawing.split("\n")[-1].strip().split())
 
 
-def get_crates(stack_row):
-    crate_regex = r'\[[A-Z]\]'
-    return re.findall(crate_regex, stack_row)
+def parse_instruction(instruction):
+    operands = [int(operand) for operand in re.findall(r'[0-9]+', instruction)]
+    return {"quantity": operands[0], "from_stack": operands[1], "to_stack": operands[2]}
 
 
 def parse_stack_drawing(stack_drawing):
-    stack_array = []
-    stack_numbers = stack_drawing.split("\n")[-1].strip().split()
-    logging.debug(stack_numbers)
+    stack_array = deque([deque([]) for _ in range(get_num_stacks(stack_drawing))])
     for row in stack_drawing.split("\n")[:-1]:
-        stack_array.append([])
-    return []
+        stack_index = 0
+        for i in range(0, len(row), 4):
+            crate = row[i:i+3]
+            if crate.strip():
+                stack_array[stack_index].append(crate)
+            stack_index += 1
+    return stack_array
+
+
+def move_crates(stacks, instruc):
+    for _ in range(instruc["quantity"]):
+        crate = stacks[instruc["from_stack"]-1].popleft()
+        stacks[instruc["to_stack"]-1].appendleft(crate)
+    return stacks
+
+
+def get_crate_letter(crate):
+    return re.search(r"[A-Z]", crate).group()
 
 
 def part1_solution(puzzle_input: str) -> str:
-    stacks_drawing, procedure = puzzle_input.split("\n\n")
-    logging.debug(stacks_drawing)
-    parse_stack_drawing(stacks_drawing)
-    return ""
+    stacks_drawing, procedure_string = puzzle_input.split("\n\n")
+    stack_array = parse_stack_drawing(stacks_drawing)
+    procedure_array = [parse_instruction(instruc) for instruc in procedure_string.split("\n")]
+    for instruc in procedure_array:
+        move_crates(stack_array, instruc)
+    return "".join([get_crate_letter(stack[0]) for stack in stack_array])
 
 
 def part2_solution(puzzle_input):
