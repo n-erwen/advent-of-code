@@ -1,4 +1,12 @@
 import re
+import logging
+
+logging.basicConfig(
+    level=logging.DEBUG,
+    format='\n%(levelname)s - %(asctime)s\n'
+           + '-' * 31
+           + '\n%(message)s\n'
+           + '-' * 31 + '\n')
 
 
 def load_puzzle_input(file_name: str) -> str:
@@ -15,9 +23,19 @@ def get_crates(stack_row):
     return re.findall(crate_regex, stack_row)
 
 
+def parse_stack_drawing(stack_drawing):
+    stack_array = []
+    stack_numbers = stack_drawing.split("\n")[-1].strip().split()
+    logging.debug(stack_numbers)
+    for row in stack_drawing.split("\n")[:-1]:
+        stack_array.append([])
+    return []
+
+
 def part1_solution(puzzle_input: str) -> str:
     stacks_drawing, procedure = puzzle_input.split("\n\n")
-    print([get_crates(s) for s in stacks_drawing.split('\n')[:-1]])
+    logging.debug(stacks_drawing)
+    parse_stack_drawing(stacks_drawing)
     return ""
 
 
@@ -26,6 +44,6 @@ def part2_solution(puzzle_input):
 
 
 if __name__ == "__main__":
-    puzzle_input = load_puzzle_input("./input.txt")
-    print(f"Part 1 Solution: {part1_solution(puzzle_input)}")
-    print(f"Part 2 Solution: {part2_solution(puzzle_input)}")
+    day5_puzzle_input = load_puzzle_input("./input.txt")
+    print(f"(Day 5 Part 1) Crates on top of each stack: {part1_solution(day5_puzzle_input)}")
+    print(f"(Day 5 Part 2): {part2_solution(day5_puzzle_input)}")
