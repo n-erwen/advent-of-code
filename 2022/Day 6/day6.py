@@ -26,4 +26,4 @@ def part2_solution(puzzle_input):
 if __name__ == "__main__":
     day6_puzzle_input = load_puzzle_input("./input.txt")
     print(f"(Day 6 Part 1) Characters processed before the first start-of-packet marker detected: {part1_solution(day6_puzzle_input)}")
-    print(f"(Day 5 Part 2) Characters processed before the first start-of-message marker detected: {part2_solution(day6_puzzle_input)}")
+    print(f"(Day 6 Part 2) Characters processed before the first start-of-message marker detected: {part2_solution(day6_puzzle_input)}")

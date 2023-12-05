@@ -9,7 +9,7 @@ SAMPLE_INPUT = """2-4,6-8
 2-6,4-8"""
 
 
-class TestDay1(unittest.TestCase):
+class TestDay4(unittest.TestCase):
     def test_part1(self):
         self.assertEqual(day4.part1_solution(
             day4.split_input_rows(SAMPLE_INPUT)), 2)

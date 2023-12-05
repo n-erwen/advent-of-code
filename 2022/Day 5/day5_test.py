@@ -13,7 +13,7 @@ move 2 from 2 to 1
 move 1 from 1 to 2""".strip("\n")
 
 
-class TestDay1(unittest.TestCase):
+class TestDay5(unittest.TestCase):
     def test_part1(self):
         self.assertEqual(day5.part1_solution(SAMPLE_INPUT), "CMZ")
 

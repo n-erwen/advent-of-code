@@ -9,7 +9,7 @@ ttgJtRGJQctTZtZT
 CrZsJsPPZsGzwwsLwLmpwMDw"""
 
 
-class TestDay1(unittest.TestCase):
+class TestDay3(unittest.TestCase):
     def test_part1(self):
         self.assertEqual(day3.part1_solution(
             day3.split_rucksacks(SAMPLE_INPUT)), 157)

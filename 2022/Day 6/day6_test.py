@@ -2,7 +2,7 @@ import unittest
 import day6
 
 
-class TestDay1(unittest.TestCase):
+class TestDay6(unittest.TestCase):
     def test_part1(self):
         test_cases = [
             {"input": "mjqjpqmgbljsphdztnvjfqwrcgsmlb", "expected": 7},
