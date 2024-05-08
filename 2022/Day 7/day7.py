@@ -21,11 +21,19 @@ def load_puzzle_input(file_name: str) -> str:
 
 
 def generate_file_tree(terminal_output: str):
-    # file_tree = Folder(None, "/")
-    # current_node = file_tree
-    # print(terminal_output)
-    sections = re.findall(r"^\$([\s\S]*?)(?=\$)", terminal_output)
-    print(sections)
+    file_tree = Folder(None, "/")
+    current_node = file_tree
+    command_outputs = re.split(r"\n(?=\$)", terminal_output)
+    print(command_outputs)
+    for command_output in command_outputs[:1]:
+        [command, *outputs] = command_output.split("\n")
+        command = command.replace("$ ", "")
+        if re.search(r"\$ cd", command):
+            folder_name = re.search(r"(?<=cd ).*", command).group()
+            print(folder_name)
+        else:
+            print('No match')
+
     return None
 
 
