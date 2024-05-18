@@ -14,7 +14,7 @@ class TestDay2(unittest.TestCase):
         self.assertEqual(day2.part1_solution(TEST_INPUT), 8)
 
     def test_part2(self):
-        pass
+        self.assertEqual(day2.part2_solution(TEST_INPUT), 2286)
 
 
 if __name__ == "__main__":

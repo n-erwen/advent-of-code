@@ -1,3 +1,7 @@
+from operator import mul as multiply
+from functools import reduce
+
+
 def load_puzzle_input(file_name: str) -> str:
     with open(file_name, "r") as file:
         return file.read().rstrip()
@@ -39,13 +43,16 @@ def part1_solution(puzzle_input: str) -> int:
     ])])
 
 
+def get_min_required_cubes_for_color(sets_list: list, color: str) -> int:
+    return max(single_set[color] for single_set in sets_list if color in single_set.keys())
+
+
 def part2_solution(puzzle_input: str) -> int:
     parsed_game_data = [parse_game_data(game_data)
                         for game_data in puzzle_input.split("\n")]
-    # for each game
-    # find the largest amount for each ball color across the sets
-    # multiply 
-    return -1
+    return sum(reduce(multiply, min_required_cubes) for min_required_cubes in
+               [[get_min_required_cubes_for_color(game["sets"], color) for color in ["red", "blue", "green"]]
+                for game in parsed_game_data])
 
 
 if __name__ == "__main__":
