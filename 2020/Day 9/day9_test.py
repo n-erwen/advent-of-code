@@ -8,8 +8,11 @@ SAMPLE_INPUT = [
 
 
 class TestDay9(unittest.TestCase):
-    def test_sample_input(self):
+    def test_part1(self):
         self.assertEqual(day9.part1_solution(SAMPLE_INPUT, 5), 127)
+
+    def test_part2(self):
+        self.assertEqual(day9.part2_solution(SAMPLE_INPUT, 5), 62)
 
 
 if __name__ == '__main__':
